@@ -30,6 +30,7 @@ export default createGlobalStyle`
     }
     body {
         line-height: 1;
+        background:green;
     }
     ol, ul {
         list-style: none;
@@ -45,6 +46,19 @@ export default createGlobalStyle`
     table {
         border-collapse: collapse;
         border-spacing: 0;
+    }
+    @font-face {
+        font-family: 'iconfont';
+        src: url('./statics/iconfont/iconfont.woff2?t=1628171758705') format('woff2'),
+             url('./statics/iconfont/iconfont.woff?t=1628171758705') format('woff'),
+             url('./statics/iconfont/iconfont.ttf?t=1628171758705') format('truetype');
+      }
+      .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 `;
  
