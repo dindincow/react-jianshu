@@ -30,7 +30,7 @@ export default createGlobalStyle`
     }
     body {
         line-height: 1;
-        background:green;
+        // background:green;
     }
     ol, ul {
         list-style: none;

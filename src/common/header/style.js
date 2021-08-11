@@ -64,17 +64,35 @@ export const SearchWraper =  styled.div`
         position: absolute;
         right: 10px;
         top: 12px;
-        background: #ccc;
         width: 30px;
         text-align: center;
         height: 30px;
         border-radius: 50%;
         line-height: 30px;
+        &.focused{
+            background: #9b9696;
+            color: #fff;
+        }
     }
 `
 export const NavSreach = styled.input.attrs({
     placeholder:"搜尋"
 })`
+    &.slide-enter {
+        transition: all .2s ease-out;
+    }
+
+    &.slide-enter-active {
+        width: 240px;
+    }
+
+    &.slide-exit {
+        transition: all .2s ease-out;
+    }
+
+    &.slide-exit-active {
+        width: 160px;
+    }
     padding: 0 40px 0 20px;
     width: 160px;
     height: 38px;
@@ -84,6 +102,9 @@ export const NavSreach = styled.input.attrs({
     border-radius: 40px;
     background: #eee;
     outline:none;
+    &.focused{
+        width:240px; 
+    }
 `
 
 export const Addition = styled.div`
@@ -110,5 +131,37 @@ export const Button = styled.div`
     }
 `
 
+export const SearchInfor = styled.div`
+    position: absolute;
+    left: 0;
+    top: 56px;
+    width: 240px;
+    padding : 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 20%);
+`
+export const SearchInforTitle = styled.div`
+    margin-top:20px;
+    margin-bottom:15px;
+    line-height:20px;
+    font-size:14px;
+    color:#969696;
+`
+
+export const SearchInforSwitch = styled.div`
+   float:right;
+   font-size:12px;
+`
+export const SearchInforItem = styled.a`
+    line-height:20px;
+    padding:0 5px;
+    font-size:12px;
+    border:1px solid #ccc;
+    border-radius:3px;
+    display: block;
+    float: left;
+    margin: 0 10px 10px 0
+
+`
 
 
