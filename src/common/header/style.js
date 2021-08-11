@@ -60,7 +60,7 @@ export const NavItem = styled.div`
 export const SearchWraper =  styled.div`
     float: left;
     position: relative;
-    .iconfont{
+    .iconfont.zoom{
         position: absolute;
         right: 10px;
         top: 12px;
@@ -141,7 +141,7 @@ export const SearchInfor = styled.div`
     box-shadow: 0 0 8px rgb(0 0 0 / 20%);
 `
 export const SearchInforTitle = styled.div`
-    margin-top:20px;
+    margin-top:10px;
     margin-bottom:15px;
     line-height:20px;
     font-size:14px;
@@ -151,6 +151,16 @@ export const SearchInforTitle = styled.div`
 export const SearchInforSwitch = styled.div`
    float:right;
    font-size:12px;
+   cursor:pointer;
+    .spin{
+        display:block;
+        float:left;
+        font-size: 18px;
+        vertical-align: bottom;
+        margin-right: 3px;
+        transition:all .2s ease-in;
+        transform-origin:center center;
+    }
 `
 export const SearchInforItem = styled.a`
     line-height:20px;

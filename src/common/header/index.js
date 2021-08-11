@@ -21,20 +21,28 @@ import {actionCreators} from "./store";
 class Header extends Component{
 
     getListArea(){
-
-        const {focused,list} = this.props;
-        if(focused){
+        const {focused,list,mouseIn,page,totalPage,handelMouseEnter,handelMouseLeave,handleChangePage} = this.props;
+        const newList = list.toJS();
+        const pageList = [];
+        if(newList.length > 0){
+            for(let i = (page-1) * 5; i < page * 5 ; i++){
+                if(i<newList.length){
+                    pageList.push(<SearchInforItem key={newList[i]}>{newList[i]}</SearchInforItem>)
+                }
+                
+            }
+    
+        }
+        if(focused || mouseIn){
             return (
-                <SearchInfor>
+                <SearchInfor onMouseEnter={handelMouseEnter} onMouseLeave={handelMouseLeave}>
                     <SearchInforTitle>熱門搜索
-                        <SearchInforSwitch>換一批</SearchInforSwitch>
+                        <SearchInforSwitch onClick={()=>{handleChangePage(page,totalPage,this.spinIcon)}}>
+                        <i ref={ (icon) =>{ this.spinIcon = icon}} className="iconfont spin">&#xe8e7;</i>換一批
+                        </SearchInforSwitch>
                     </SearchInforTitle>
                     <div>
-                        {
-                            list.map(item=>{
-                                return <SearchInforItem key={item}>{item}</SearchInforItem>
-                            })
-                        } 
+                        {pageList} 
                     </div>
                 </SearchInfor>
             ) 
@@ -44,7 +52,7 @@ class Header extends Component{
         
     }
     render(){
-        const {focused,handleInputFocus,handleInputBlur} = this.props;
+        const {focused,handleInputFocus,handleInputBlur,list} = this.props;
         return (
             <HeaderWrapper>
                 <Logo></Logo>
@@ -59,12 +67,12 @@ class Header extends Component{
                         >
                             <NavSreach 
                                 className={focused ? 'focused' : ''}
-                                onFocus={handleInputFocus}
+                                onFocus={()=>{handleInputFocus(list)}}
                                 onBlur={handleInputBlur}
                             >
                             </NavSreach>
                         </CSSTransition>
-                        <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe600;</i>
+                        <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe600;</i>
                         {this.getListArea()}
                     </SearchWraper>
                     <NavItem className="right"><i className="iconfont">&#xe602;</i></NavItem>
@@ -82,18 +90,48 @@ class Header extends Component{
 const mapStateToProps = (state)=>{
     return{
         focused:state.get('header').get('focused'),
-        list:state.get('header').get('list')
+        list:state.get('header').get('list'),
+        page:state.get('header').get('page'),
+        totalPage:state.get('header').get('totalPage'),
+        mouseIn:state.get('header').get('mouseIn')
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        handleInputFocus(){
-            dispatch(actionCreators.getList())
+        handleInputFocus(list){
+            if(list.size === 0){
+                dispatch(actionCreators.getList())
+            }    
             dispatch(actionCreators.search_focus())
         },
         handleInputBlur(){
-           
             dispatch(actionCreators.search_blur())
+        },
+        handelMouseEnter(){
+            dispatch(actionCreators.mouseEnter())
+        },
+        handelMouseLeave(){
+            dispatch(actionCreators.mouseLeave())
+        },
+        handleChangePage(page,totalPage,spin){
+            // spin.style.transform = 'rotate(360deg)'
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig,'');
+            if(originAngle){
+                originAngle = parseInt(originAngle,10)
+            }else{
+                originAngle = 0;
+            }
+
+            spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)'
+
+
+
+            if(page < totalPage){
+                dispatch(actionCreators.changePage(page+1))
+            }else{
+                dispatch(actionCreators.changePage(1))
+            }
+            
         }
     }
 }
