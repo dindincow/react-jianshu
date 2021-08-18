@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import {fromJS, isImmutable} from 'immutable';
+import {fromJS} from 'immutable';
 import axios from 'axios';
 
 

@@ -47,6 +47,10 @@ export default createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    a{
+        text-decoration: none;
+        color: #434343;
+    }
     @font-face {
         font-family: 'iconfont';
         src: url('./statics/iconfont/iconfont.woff2?t=1628171758705') format('woff2'),

@@ -6,7 +6,7 @@ export const HeaderWrapper = styled.div`
     height:56px;
     background:#fff;
     border-bottom:1px solid #ccc;
-    
+    z-index:1;
     position: relative;
 `
 /** 
@@ -22,9 +22,7 @@ export const Logo = styled.a`
 */
 
 //也可換成這樣寫
-export const Logo = styled.a.attrs({
-    href:'/'
-})`
+export const Logo = styled.div`
     height:56px;
     width:100px;
     position:absolute;

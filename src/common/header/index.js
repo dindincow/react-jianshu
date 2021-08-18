@@ -16,6 +16,8 @@ import {
     SearchInforItem
 } from "./style"
 import {actionCreators} from "./store";
+import {actionCreators as loginActionCreators} from "../../pages/login/store"
+import {Link} from 'react-router-dom'
 
 
 class Header extends Component{
@@ -52,10 +54,11 @@ class Header extends Component{
         
     }
     render(){
-        const {focused,handleInputFocus,handleInputBlur,list} = this.props;
+        const {focused,handleInputFocus,handleInputBlur,list,login,logout} = this.props;
         return (
             <HeaderWrapper>
-                <Logo></Logo>
+                <Link to="/"> <Logo></Logo> </Link>
+                
                 <Nav>
                     <NavItem className="left active">首頁</NavItem>
                     <NavItem className="left">IT技術</NavItem>
@@ -76,11 +79,20 @@ class Header extends Component{
                         {this.getListArea()}
                     </SearchWraper>
                     <NavItem className="right"><i className="iconfont">&#xe602;</i></NavItem>
-                    <NavItem className="right">登入</NavItem>
+                    {/* 如果登入就顯示是退出;如果沒登入就顯示燈入 */}
+                    {
+                        login ? 
+                        <NavItem className="right" onClick={logout}>退出</NavItem> :
+                        <Link to="/login"> <NavItem className="right">登入</NavItem></Link>  
+                       
+                    }
+                  
                 </Nav>
                 <Addition>
                     <Button className="reg">註冊</Button>
-                    <Button className="write"><i className="iconfont">&#xe601;</i>寫文章</Button>
+                    <Link to="/write">
+                        <Button className="write"><i className="iconfont">&#xe601;</i>寫文章</Button>
+                    </Link>
                 </Addition>
             </HeaderWrapper>
         )
@@ -93,11 +105,15 @@ const mapStateToProps = (state)=>{
         list:state.get('header').get('list'),
         page:state.get('header').get('page'),
         totalPage:state.get('header').get('totalPage'),
-        mouseIn:state.get('header').get('mouseIn')
+        mouseIn:state.get('header').get('mouseIn'),
+        login:state.get('login').get('login')
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
+        logout(){
+            dispatch(loginActionCreators.logout())
+        },
         handleInputFocus(list){
             if(list.size === 0){
                 dispatch(actionCreators.getList())
